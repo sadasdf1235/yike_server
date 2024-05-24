@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 const path = require('path');
 
-const { decodeToken } = require('./dao/jwt');
+const { decodeToken } = require('./utils/jwt');
 
 // 跨域
 app.all('*', (req, res, next) => {

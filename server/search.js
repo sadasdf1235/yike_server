@@ -1,4 +1,4 @@
-const { searchUser, isFriend, searchGroup, isInGroup } = require('../dao/dbserver');
+const { searchUser, isFriend, searchGroup, isInGroup } = require('../mapper/dbserver');
 
 // 搜素
 exports.search = async (req) => {

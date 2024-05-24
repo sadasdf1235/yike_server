@@ -1,4 +1,4 @@
-const { userUpdate,  userDetail, friendMarkName } = require('../dao/dbserver');
+const { userUpdate,  userDetail, friendMarkName } = require('../mapper/dbserver');
 
 // 更新用户信息
 exports.updateUserInfo = async (req) => {

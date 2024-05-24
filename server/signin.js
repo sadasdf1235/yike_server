@@ -1,6 +1,6 @@
-const {findUser} = require('../dao/dbserver');
-const { compare } = require('../dao/encryption');
-const { createToken } = require('../dao/jwt');
+const {findUser} = require('../mapper/dbserver');
+const { compare } = require('../mapper/encryption');
+const { createToken } = require('../utils/jwt');
 
 // 登录
 exports.signIn = async (req) => {

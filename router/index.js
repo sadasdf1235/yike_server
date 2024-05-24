@@ -1,9 +1,9 @@
-const { emailSignUp } = require('../dao/emailserver.js');
+const { emailSignUp } = require('../mapper/emailserver.js');
 const {signUp} = require('../server/signup.js')
 const {signIn} = require('../server/signin.js');
 const {search} = require('../server/search.js');
 const {updateUserInfo,updateFriendMarkName,getUserInfo} = require('../server/userinfo.js');
-const {addFriend} = require('../server/friend.js');
+const {addFriend,agreeFriend,deleteFriend} = require('../server/friend.js');
 
 class Result {
     constructor(code,msg,data){
@@ -74,11 +74,32 @@ module.exports = function(app){
         }
     })
 
-    // 添加好友
-    app.post('/friend',async (req,res)=>{
+    // 好友申请
+    app.post('/friend/apply',async (req,res)=>{
         const result = await addFriend(req);
         if(result){
             res.send(Result.success(undefined,result));
+        }
+    })
+
+    // 同意好友
+    app.post('/friend/agree',async (req,res)=>{
+        const result = await agreeFriend(req);
+        console.log(result);
+        if(result.code){
+            res.send(Result.success(undefined,result));
+        }else{
+            res.send(new Result(400,result.msg));
+        }
+    })
+
+    // 删除/拒绝好友
+    app.post('/friend/delete',async (req,res)=>{
+        const result = await deleteFriend(req);
+        if(result.code){
+            res.send(Result.success(undefined,result));
+        }else {
+            res.send(new Result(400,result.msg));
         }
     })
 }

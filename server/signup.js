@@ -1,5 +1,5 @@
-const {buildUser,countUser} = require('../dao/dbserver');
-const {encryption} = require('../dao/encryption');
+const {buildUser,countUser} = require('../mapper/dbserver');
+const {encryption} = require('../mapper/encryption');
 
 // 注册
 exports.signUp = (req) => {

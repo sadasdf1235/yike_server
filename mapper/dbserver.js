@@ -6,8 +6,8 @@ const User = dbmodel.model('User');
 const Friend = dbmodel.model('Friend');
 const Group = dbmodel.model('Group');
 const GroupMember = dbmodel.model('GroupMember');
-const { encryption, compare } = require('../dao/encryption.js');
-const { createToken } = require('./jwt.js')
+const { encryption, compare } = require('./encryption.js');
+const { createToken } = require('../utils/jwt.js')
 
 // 新建用户
 exports.buildUser = async function (username, email, password) {
@@ -195,4 +195,32 @@ exports.buildMessage = async function (userId, friendId, message, type,) {
         message_type: type,
         create_time: Date.now(), // 第一条消息创建的时间
     }).save();
+}
+
+// 修改好友状态
+exports.updateFriendStatus = async function (userId, friendId, status) {
+    let wherestr = {$or: [{ user_id: userId, friend_id: friendId },{ user_id: friendId, friend_id: userId }]};
+    /*
+    matchedCount：一个整数，表示匹配到的文档数量。
+    modifiedCount：一个整数，表示实际被修改的文档数量。
+    */
+    const result =  await Friend.updateMany(wherestr, { $set: { status } }, { new: true }).exec();
+    if(result.modifiedCount >0 ){
+        return { msg: '成功添加好友', code: 1 };
+    }else {
+        return { msg: '添加好友失败', code: 0 };
+    }
+}
+
+// 删除好友
+exports.deleteFriend = async function (userId, friendId) {
+    let wherestr = {$or: [{ user_id: userId, friend_id: friendId },{ user_id: friendId, friend_id: userId }]};
+    const result = await Friend.deleteMany(wherestr).exec();
+    // deletedCount：一个整数，表示被删除的文档数量。
+    // 1 成功 0 失败
+    if(result.deletedCount >0 ){
+        return { msg: '删除好友成功', code: 1 };
+    }else {
+        return { msg: '删除好友失败', code: 0 };
+    }
 }
