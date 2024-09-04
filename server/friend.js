@@ -1,4 +1,4 @@
-const {addFriend,updateFriendStatus,deleteFriend} = require('../mapper/dbserver');
+const {addFriend,updateFriendStatus,deleteFriend} = require('../mapper/friendMapper');
 
 //  好友申请
 exports.addFriend = async (req) => {

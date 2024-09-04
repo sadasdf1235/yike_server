@@ -1,4 +1,6 @@
-const { searchUser, isFriend, searchGroup, isInGroup } = require('../mapper/dbserver');
+const { searchUser } = require('../mapper/userMapper');
+const { isFriend } = require('../mapper/friendMapper');
+const { searchGroup, isInGroup } = require('../mapper/groupMapper');
 
 // 搜素
 exports.search = async (req) => {
@@ -23,22 +25,3 @@ exports.search = async (req) => {
     }
     return copyList;
 }
-
-// exports.search = async (req) => {
-//     let { keyword, id, type } = req.body;
-//     const flag = type === 'user';
-//     let list = flag ? await searchUser(keyword) : await searchGroup(keyword);
-    
-//     if (!list.length) return [];
-    
-//     for (let item of list) {
-//         if (flag) {
-//             item.isFriend = await isFriend(id, item._id);
-//             console.log(await isFriend(id, item._id),item.isFriend)
-//         } else {
-//             item.isInGroup = await isInGroup(id, item._id);
-//         }
-//     }
-//     console.log(list);
-//     return list;
-// }

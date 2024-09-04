@@ -29,6 +29,7 @@ const FriendSchema = new Schema(
         create_time: { type: Date, default: Date.now }, // 创建时间
         markname: { type: String, default: '' }, // 备注名
         last_time: { type: Date, default: Date.now }, 
+        tip: { type: Number, default: 0 }, // 未读消息数
     },
 );
 
@@ -68,6 +69,7 @@ const GroupMemberSchema = new Schema(
         create_time: { type: Date, default: Date.now }, // 加入时间
         last_time: { type: Date, default: Date.now },
         shield: { type: Number, default: 0 }, // 0:不屏蔽群消息 1:屏蔽群消息
+        markname: { type: String, }, // 备注名
     },
 );
 
