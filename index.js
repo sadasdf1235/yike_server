@@ -6,6 +6,10 @@ const path = require('path');
 
 const { decodeToken } = require('./utils/jwt');
 
+// socket
+const { socketInit } = require('./utils/socket');
+socketInit(app);
+
 // 跨域
 app.all('*', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');

@@ -79,7 +79,7 @@ exports.deleteFriend = async function (userId, friendId) {
     }
 }
 
-// TODO 获取好友列表
+// 获取好友列表
 exports.getFriendList = async function (userId) {
     let wherestr = { user_id: userId, status: 0 };
     let out = { __v: 0, create_time: 0, status: 0 };
